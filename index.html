@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Fireworks – mobile-first fireworks ordering app with serial-number product cards, sticky category filters, WhatsApp sharing and image order export.">
+<title>Fireworks | Order App</title>
+<script>document.addEventListener('DOMContentLoaded',()=>{const link=document.createElement('link');link.rel='stylesheet';link.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';document.head.appendChild(link)});</script>
+<style>
+:root{--red:#b91c2b;--red-dark:#951827;--red-soft:#f5f5f5;--ink:#171717;--muted:#71717a;--border:#e9e9ec;--bg:#fafafa;--white:#fff;--green:#168143}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,Arial,system-ui,sans-serif;-webkit-font-smoothing:antialiased}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #e45b68;outline-offset:3px}a{text-decoration:none;color:inherit}[hidden]{display:none!important}
+.header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border)}.head-inner{max-width:1340px;padding:14px 24px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;min-width:0} .mark{height:38px;width:38px;background:#111;color:#fff;border-radius:10px;display:grid;place-items:center;font-size:21px;flex:none}.brand-name{color:var(--ink);font-weight:900;letter-spacing:-.7px;line-height:1.1;font-size:18px}.brand-sub{font-size:9px;letter-spacing:1.05px;font-weight:800;color:#52525b;margin-top:3px}.head-right{display:flex;gap:16px;align-items:center}.phone{font-size:12px;color:#52525b;font-weight:700;white-space:nowrap}.go-cart{display:flex;align-items:center;gap:9px;padding:10px 14px;background:var(--red);color:#fff;border:0;border-radius:10px;font-size:12px;font-weight:800}.bubble{background:#ffffff33;border-radius:99px;padding:2px 6px;min-width:20px;text-align:center}
+.wrap{max-width:1340px;padding:0 24px;margin:auto}.intro{padding:28px 0 25px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px}.eyebrow{color:var(--ink);font-size:11px;text-transform:uppercase;font-weight:800;letter-spacing:1.5px}.intro h1{font-size:clamp(26px,3.1vw,39px);letter-spacing:-1.35px;line-height:1.15;margin:9px 0 8px;font-weight:900}.intro p{color:var(--muted);margin:0;font-size:13px;line-height:1.6}.offer-tag{border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:12px;padding:12px 16px;text-align:center;flex:none}.offer-tag b{font-size:28px;font-weight:900;line-height:1;letter-spacing:-1px;display:block}.offer-tag span{font-size:10px;letter-spacing:1px;font-weight:800;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;align-items:start;gap:24px;margin:23px 0 70px}.toolbar{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:18px}.toolbar-first{display:flex;align-items:center;gap:10px}.search{flex:1;position:relative}.search input{width:100%;border:1px solid var(--border);border-radius:9px;padding:12px 14px 12px 37px;font-size:13px;background:#fff;min-width:0}.search .glass{position:absolute;left:13px;top:10px;font-size:19px;color:#a1a1aa;pointer-events:none}.sort{border-radius:9px;background:#fff;border:1px solid var(--border);padding:12px 10px;color:#3f3f46;font-size:12px;max-width:173px}.cats{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;padding-top:12px}.cat{flex:none;background:#fff;border:1px solid var(--border);border-radius:8px;color:#52525b;padding:8px 11px;white-space:nowrap;font-size:11px;font-weight:700}.cat.on{background:var(--red);border-color:var(--red);color:white}.cat:hover:not(.on){border-color:#e2a2a8}
+.list-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 14px}.list-title h2{margin:0;font-size:20px;letter-spacing:-.65px;font-weight:850}.list-title span{font-size:12px;color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px;min-height:154px;display:flex;flex-direction:column;gap:10px}.product-top{display:flex;gap:9px;align-items:flex-start}.product-icon{width:39px;height:39px;border-radius:9px;background:var(--red-soft);color:var(--red);flex:none;display:grid;place-items:center;font-size:21px}.product-main{min-width:0}.serial-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--ink);border:1px solid #d4d4d8;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;line-height:1;margin-bottom:6px}.serial-chip span{letter-spacing:.6px}.prod-label{color:#9696a1;font-size:10px;font-weight:650;line-height:1.35;margin-bottom:5px}.product h3{margin:0;font-size:14px;line-height:1.38;font-weight:750;letter-spacing:-.22px;overflow-wrap:anywhere}.product-bottom{display:flex;align-items:end;justify-content:space-between;gap:8px;margin-top:auto}.amount-line{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}.final{color:var(--ink);font-size:22px;font-weight:900;letter-spacing:-.85px;line-height:1.1}.original{color:#94949d;text-decoration:line-through;font-size:12px;font-weight:500}.per{color:#8b8b94;font-size:11px;margin-top:5px}.add{background:var(--red);color:#fff;border:1px solid var(--red);border-radius:8px;padding:10px 16px;font-weight:800;font-size:12px;white-space:nowrap}.add:hover,.primary:hover,.go-cart:hover{background:var(--red-dark)}.qty{display:flex;align-items:center;flex:none;border:1px solid #e5c5c8;border-radius:9px;overflow:hidden;background:#fff}.qty button{border:0;background:#f5f5f5;color:var(--ink);font-weight:900;font-size:19px;height:35px;width:32px}.qty button:hover{background:#ececec}.qty strong{text-align:center;min-width:28px;padding:0 3px;font-size:13px;font-weight:800}.pending{font-size:12px;font-weight:800;color:#6b5f64}.pending-note{font-size:10px;color:var(--muted);margin-top:3px}.no-results{padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:12px;background:#fff}
+.order-wrap{position:sticky;top:88px;scroll-margin-top:86px}.panel{border:1px solid var(--border);border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 12px 28px #15151508}.panel-head{padding:19px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}.panel-head h2{font-size:19px;font-weight:850;letter-spacing:-.5px;margin:0}.count{color:var(--ink);background:#f4f4f5;border-radius:7px;padding:5px 9px;font-weight:800;font-size:11px}.cart-items{max-height:238px;overflow-y:auto;padding:5px 20px}.empty-cart{padding:30px 2px;text-align:center;color:#8e8e99;font-size:12px;line-height:1.65}.line{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid #f1f1f2}.line:last-child{border:0}.cart-name{font-weight:750;font-size:12px;line-height:1.4}.cart-serial{display:inline-flex;align-items:center;background:#fff;color:var(--ink);border:1px solid #d4d4d8;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;margin-bottom:5px}.cart-unit{color:var(--muted);font-size:11px;margin-top:4px}.cart-side{display:flex;flex-direction:column;align-items:end;gap:6px}.cart-side b{color:var(--ink);font-size:12px}.cart-side .qty button{height:26px;width:27px;font-size:16px}.cart-side .qty strong{min-width:25px;font-size:12px}
+.bill{padding:15px 20px 18px;border-top:1px solid var(--border);background:#fdfdfd}.bill-row{display:flex;justify-content:space-between;gap:10px;margin-bottom:9px;font-size:12px;color:#666670}.bill-row strong{color:#333}.bill-total{display:flex;justify-content:space-between;align-items:center;padding-top:13px;border-top:1px solid var(--border);margin-top:12px;font-size:14px;font-weight:800}.bill-total b{color:var(--ink);font-size:25px;letter-spacing:-1px;font-weight:900}.inputs{padding:19px 20px 7px}.input-title{font-size:14px;font-weight:850;letter-spacing:-.2px;margin-bottom:15px}.field{margin-bottom:14px}.field label{display:block;font-size:11px;font-weight:750;margin-bottom:6px;color:#3f3f46}.field input,.field textarea,.order-text{border:1px solid #dedee3;background:#fff;color:#27272a;border-radius:9px;width:100%;padding:11px 12px;font-size:13px;line-height:1.6}.field input::placeholder,.field textarea::placeholder{color:#aaaab2}.field textarea{min-height:112px;max-height:540px;resize:vertical;display:block}.hint{color:#878790;font-size:10px;margin-top:6px}.order-preview{padding:2px 20px 0}.preview-label{font-size:11px;font-weight:800;color:#575760;margin-bottom:8px}.order-text{height:180px;resize:vertical;white-space:pre-wrap;font-size:11px;color:#656570;background:#fafafa;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}.action{padding:15px 20px 21px}.primary{border:0;background:var(--red);color:#fff;width:100%;border-radius:9px;padding:14px 12px;font-size:13px;font-weight:850}.primary .wa{display:inline-block;color:#bdf8d4;margin-right:6px}.secondary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.secondary{border:1px solid #d4d4d8;background:#fff;color:var(--ink);border-radius:9px;padding:12px 7px;font-size:12px;font-weight:800}.secondary:hover{background:#f5f5f5}.utility{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;padding:14px 2px 0}.utility button{border:0;background:transparent;color:#606069;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px;padding:0}.fine-print{font-size:10px;color:#92929b;line-height:1.65;text-align:center;margin-top:14px}.disclaimer{padding:12px 4px 0;font-size:11px;color:#7e7e89;line-height:1.6}.footer{color:#84848d;border-top:1px solid var(--border);padding:20px 0 34px;font-size:11px;display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}.mobile-bar{display:none}.toast{position:fixed;z-index:70;bottom:20px;left:50%;transform:translate(-50%,12px);background:#242428;color:#fff;max-width:min(390px,92vw);padding:13px 16px;border-radius:10px;box-shadow:0 6px 30px #0003;font-size:12px;opacity:0;pointer-events:none;transition:.2s;text-align:center}.toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:1060px){.layout{grid-template-columns:minmax(0,1fr) 346px;gap:16px}.wrap{padding:0 18px}.cards{grid-template-columns:1fr}}
+
+/* Blastu product-card redesign: consistent vertically stacked pricing/actions. */
+.product{min-height:196px;gap:12px;padding:17px}
+.product-top{align-items:flex-start;gap:13px;flex:1}
+.product-icon{width:46px;height:46px;border-radius:11px;font-size:23px}
+.product-main{min-width:0;flex:1}
+.product-main h3{font-size:14px;line-height:1.45;font-weight:800;letter-spacing:-.15px;margin-top:6px;overflow-wrap:anywhere}
+.serial-chip{font-size:12px;font-weight:900;border:0;background:var(--red-soft);padding:5px 9px;border-radius:6px;margin-bottom:0;letter-spacing:.05px}
+.product-bottom{display:flex;flex-direction:column;align-items:stretch;gap:12px;margin-top:auto}
+.price-block{min-height:40px;display:flex;flex-direction:column;justify-content:flex-end}
+.price-block .amount-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price-block .final{font-size:23px;font-weight:900}
+.add-row{display:flex;align-items:stretch;min-height:41px}
+.add-row .add{width:100%;min-height:41px;border-radius:9px;font-size:13px}
+.add-row .qty{width:100%;height:41px;display:flex;justify-content:space-between;border-radius:9px}
+.add-row .qty button{width:47px;height:100%;font-size:21px}
+.add-row .qty strong{flex:1;align-content:center;font-size:14px}
+.product .pending{font-size:14px}
+
+@media(max-width:760px){.head-inner{padding:12px 15px}.mark{width:34px;height:34px;border-radius:9px}.brand-name{font-size:16px}.brand-sub{font-size:8px;letter-spacing:.8px}.phone{display:none}.go-cart{font-size:11px;padding:10px 11px}.wrap{padding:0 14px}.intro{padding:24px 1px 21px;align-items:flex-start}.intro h1{font-size:26px;margin:7px 0}.intro p{font-size:12px;line-height:1.65}.offer-tag{padding:9px 10px;border-radius:9px}.offer-tag b{font-size:22px}.offer-tag span{font-size:8px}.layout{display:flex;flex-direction:column;gap:27px;margin:18px 0 65px}.catalog,.order-wrap{width:100%;min-width:0}.cards{grid-template-columns:1fr;gap:9px}.product{min-height:130px;padding:14px;gap:12px}.final{font-size:22px}.product-bottom{padding-left:0}.toolbar{padding:12px}.sort{max-width:128px;font-size:11px}.search input{font-size:12px}.list-title h2{font-size:19px}.order-wrap{position:static;scroll-margin-top:78px}.panel-head{padding:17px}.cart-items{max-height:none;padding:0 17px}.mobile-bar{position:fixed;display:flex;align-items:center;justify-content:space-between;gap:10px;bottom:0;left:0;right:0;z-index:25;background:#fff;border-top:1px solid var(--border);padding:10px 14px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 24px #0000000a}.mobile-bar .summary{display:flex;flex-direction:column;gap:3px}.mobile-bar small{color:#71717a;font-size:10px;font-weight:700}.mobile-bar strong{font-weight:900;color:var(--ink);font-size:19px}.mobile-bar button{background:var(--red);color:#fff;font-size:12px;font-weight:850;border:0;border-radius:9px;padding:14px 20px}.toast{bottom:90px}.footer{padding-bottom:115px}}
+@media(max-width:385px){.offer-tag{display:none}.product h3{font-size:13px}.final{font-size:21px}.product-icon{width:34px;height:34px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+
+/* Compact, fully-responsive price list: all four columns stay visible on mobile. */
+.catalog-table-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:clip}
+.product-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;text-align:left}
+.product-table .serial-col{width:10%}.product-table .name-col{width:44%}
+.product-table .price-col{width:22%}.product-table .action-col{width:24%}
+.product-table thead th{background:#f7f7f8;color:#575760;text-transform:uppercase;letter-spacing:.055em;
+    font-size:11px;font-weight:800;text-align:left;padding:13px 12px;border-bottom:1px solid var(--border);
+    position:sticky;top:68px;z-index:2}
+.product-table thead th:last-child{text-align:center}
+.product-table tbody td{padding:13px 12px;border-bottom:1px solid #ededf0;vertical-align:middle}
+.product-table tbody tr:last-child td{border-bottom:0}
+.product-table tbody tr:nth-child(even){background:#fcfcfd}
+.product-table tbody tr:has(.qty){background:#fafafa}
+.product-table .serial-cell{font-size:15px;font-weight:850;color:#111;white-space:nowrap;font-variant-numeric:tabular-nums}
+.product-table .name-cell{font-size:13px;font-weight:650;color:#171717;line-height:1.4;overflow-wrap:anywhere}
+.product-table .price-cell{font-variant-numeric:tabular-nums}
+.product-table .discounted{display:block;font-size:15px;font-weight:850;color:#111;white-space:nowrap;letter-spacing:-.3px}
+.product-table .mrp{display:block;font-size:11px;color:#92929a;text-decoration:line-through;margin-top:3px;white-space:nowrap}
+.product-table .table-action{text-align:center}
+.product-table .table-add{width:100%;max-width:116px;background:var(--red);border:1px solid var(--red);border-radius:7px;
+    color:#fff;font-weight:800;font-size:12px;min-height:38px;padding:7px 4px}
+.product-table .table-add:hover{background:var(--red-dark);border-color:var(--red-dark)}
+.product-table .table-action .qty{display:flex;justify-content:space-between;align-items:stretch;
+    width:100%;max-width:116px;height:38px;margin:auto;border:1px solid #e4e4e7;border-radius:7px;overflow:hidden}
+.product-table .table-action .qty button{background:#f4f4f5;color:#111;border:0;font-size:18px;font-weight:800;
+    height:100%;width:35px;flex:none}
+.product-table .table-action .qty button:hover{background:#e4e4e7}
+.product-table .table-action .qty strong{font-size:13px;min-width:0;flex:1;display:grid;place-items:center;padding:0 1px}
+.product-table .price-request{font-weight:650;color:#52525b;font-size:11px;line-height:1.4}
+.product-table .table-add:disabled{background:#f4f4f5;border:1px solid #e4e4e7;color:#71717a}
+@media(min-width:761px){
+  .product-table .serial-col{width:11%}.product-table .name-col{width:45%}
+  .product-table .price-col{width:20%}.product-table .action-col{width:24%}
+}
+@media(max-width:760px){
+  .catalog-table-wrap{border-radius:10px}
+  .product-table .serial-col{width:12%}.product-table .name-col{width:34%}
+  .product-table .price-col{width:24%}.product-table .action-col{width:30%}
+  .product-table thead th{padding:10px 5px;font-size:9.5px;letter-spacing:0;top:59px}
+  .product-table tbody td{padding:12px 5px}
+  .product-table .serial-cell{font-size:13px}
+  .product-table .name-cell{font-size:12px;line-height:1.35}
+  .product-table .discounted{font-size:12px;letter-spacing:-.25px}
+  .product-table .mrp{font-size:10px;margin-top:4px}
+  .product-table .table-action .qty{height:36px}
+  .product-table .table-action .qty button{width:31px;font-size:18px}
+  .product-table .table-action .qty strong{font-size:12px}
+  .product-table .table-add{min-height:36px;font-size:12px}
+}
+@media(max-width:370px){
+  .product-table .serial-col{width:12%}.product-table .name-col{width:31%}
+  .product-table .price-col{width:25%}.product-table .action-col{width:32%}
+  .product-table thead th{padding:10px 3px;font-size:9px}
+  .product-table tbody td{padding:11px 3px}
+  .product-table .discounted{font-size:11px}
+  .product-table .table-action .qty button{width:28px}
+}
+
+/* Blastu product cards inspired by the supplied Card_Bin reference */
+.product-list{display:flex;flex-direction:column;gap:16px}
+.product-card{background:#fff;border:1px solid #d8d8dc;border-radius:28px;padding:26px 28px;min-height:190px;
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(138px,.43fr) minmax(150px,.42fr);gap:24px;align-items:center;
+ box-shadow:0 8px 22px rgba(0,0,0,.075)}
+.product-card-info{min-width:0;align-self:stretch;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.serial-badge{display:inline-flex;align-items:center;justify-content:center;border:2.5px solid #080808;border-radius:19px;
+ min-width:86px;padding:7px 17px;color:#111;background:#fff;font-size:22px;font-weight:900;letter-spacing:.5px;line-height:1.15;margin-bottom:16px}
+.product-card-name{font-size:clamp(21px,2.5vw,34px);font-weight:900;color:#111;letter-spacing:-.8px;line-height:1.15;margin:0;overflow-wrap:anywhere}
+.product-card-price{min-width:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;text-align:right;white-space:nowrap}
+.product-card-price .discount-price{font-size:clamp(26px,3vw,43px);font-weight:900;letter-spacing:-1.2px;line-height:1.08;color:#111;font-variant-numeric:tabular-nums}
+.product-card-price .original-price{font-size:clamp(16px,1.8vw,25px);font-weight:400;color:#3f4654;text-decoration:line-through;line-height:1.2;font-variant-numeric:tabular-nums}
+.product-card-action{min-width:0;display:flex;justify-content:flex-end;align-items:center}
+.product-card .card-add{width:100%;max-width:205px;min-height:66px;padding:12px 18px;border-radius:999px;background:#ff3039;color:#fff;border:1px solid #ff3039;
+ box-shadow:inset 0 2px 0 rgba(255,255,255,.35);font-size:clamp(19px,2vw,28px);font-weight:650;line-height:1}
+.product-card .card-add:hover{background:#e5222c;border-color:#e5222c}
+.product-card-action .qty{width:100%;max-width:205px;height:56px;border:1px solid #d8d8dc;border-radius:999px;justify-content:space-between}
+.product-card-action .qty button{height:100%;width:48px;background:#f4f4f5;color:#111;font-size:24px}
+.product-card-action .qty strong{font-size:18px;min-width:0;flex:1}
+.product-card .price-request{font-size:15px;font-weight:750;color:#555;white-space:normal;text-align:right}
+@media(min-width:761px) and (max-width:1000px){
+ .product-card{grid-template-columns:minmax(0,1fr) minmax(120px,.42fr) minmax(125px,.38fr);padding:22px;gap:16px;min-height:165px;border-radius:24px}
+ .serial-badge{font-size:18px;min-width:75px;padding:7px 13px;margin-bottom:12px}
+ .product-card-name{font-size:clamp(18px,2.4vw,26px)}
+ .product-card-price .discount-price{font-size:clamp(22px,2.6vw,32px)}
+ .product-card-price .original-price{font-size:16px}
+ .product-card .card-add{min-height:54px;font-size:19px}
+ .product-card-action .qty{height:50px}
+}
+@media(max-width:760px){
+ .product-list{gap:12px}
+ .product-card{grid-template-columns:minmax(0,1fr) minmax(100px,31%);grid-template-areas:"info price" "info action";
+  padding:19px 16px;gap:13px 10px;min-height:152px;border-radius:24px;box-shadow:0 5px 15px rgba(0,0,0,.055)}
+ .product-card-info{grid-area:info;justify-content:center;align-self:stretch}
+ .serial-badge{font-size:16px;min-width:68px;padding:6px 12px;border-width:2px;border-radius:15px;margin-bottom:13px}
+ .product-card-name{font-size:clamp(16px,4.7vw,22px);letter-spacing:-.35px;line-height:1.2}
+ .product-card-price{grid-area:price;align-items:flex-end;justify-content:flex-end;gap:4px;align-self:end;max-width:100%}
+ .product-card-price .discount-price{font-size:clamp(16px,4.8vw,24px);letter-spacing:-.45px}
+ .product-card-price .original-price{font-size:clamp(11px,3.2vw,14px);color:#52525b}
+ .product-card-action{grid-area:action;justify-content:stretch;align-self:start}
+ .product-card .card-add{width:100%;min-height:42px;padding:10px 7px;font-size:14px}
+ .product-card-action .qty{width:100%;height:42px}
+ .product-card-action .qty button{width:29px;font-size:20px}
+ .product-card-action .qty strong{font-size:14px}
+ .product-card .price-request{font-size:12px;text-align:right}
+}
+@media(max-width:360px){
+ .product-card{grid-template-columns:minmax(0,1fr) minmax(92px,34%);padding:16px 12px;gap:10px 8px;border-radius:20px}
+ .serial-badge{font-size:14px;min-width:62px;padding:6px 10px;margin-bottom:11px}
+ .product-card-name{font-size:16px}
+ .product-card-price .discount-price{font-size:16px}
+ .product-card-price .original-price{font-size:11px}
+ .product-card .card-add{font-size:13px;min-height:40px}
+ .product-card-action .qty{height:40px}
+ .product-card-action .qty button{width:26px}
+}
+.secondary-grid.single{grid-template-columns:1fr}
+
+
+/* Sticky, thumb-friendly category chips; serial-number catalog order stays intact. */
+.toolbar{margin-bottom:8px}
+.toolbar-first{display:flex;align-items:center;gap:10px}
+.category-sticky{position:sticky;top:67px;z-index:24;background:var(--bg);padding:8px 0 12px;margin:0 0 13px;}
+.cats{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:0 1px 2px;overscroll-behavior-x:contain}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;min-height:42px;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:999px;color:#3f3f46;padding:10px 14px;white-space:nowrap;font-size:12px;font-weight:750;line-height:1}
+.cat.on{background:var(--red);border-color:var(--red);color:#fff}
+.cat:hover:not(.on){border-color:#c7c7cc}
+@media(max-width:760px){
+ .category-sticky{top:59px;padding:8px 0 10px;margin-bottom:10px}
+ .cat{min-height:44px;padding:11px 15px;font-size:12px}
+ .toolbar{padding:10px;margin-bottom:5px}
+ .toolbar-first{gap:0}
+}
+@media(max-width:370px){.cat{padding:11px 13px;font-size:11.5px;min-height:43px}}
+
+</style>
+</head>
+<body>
+<header class="header"><div class="head-inner">
+ <div class="brand"><div class="mark" aria-hidden="true">✦</div><div><div class="brand-name">FIREWORKS</div><div class="brand-sub">ORDER APP</div></div></div>
+ <div class="head-right"><a class="phone" href="tel:+918825753664">☎ 88257 53664</a><button class="go-cart" type="button" id="topCart">View order <span class="bubble" id="headCount">0</span> →</button></div>
+</div></header>
+<main class="wrap">
+ <div class="layout">
+  <section class="catalog" aria-label="Product catalog">
+   <div class="toolbar"><div class="toolbar-first"><div class="search"><span class="glass" aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search serial no. or product..." autocomplete="off" aria-label="Search products"></div></div></div>
+   <div class="category-sticky"><div class="cats" id="categories" aria-label="Product categories"></div></div>
+   <div class="list-title"><h2>All products</h2><span id="resultCount">157 products</span></div>
+   <div id="productGrid" class="product-list" aria-label="Fireworks products"></div>
+   <div id="noResults" class="no-results" hidden>No products found. Try another search.</div>
+  </section>
+  <aside id="orderPanel" class="order-wrap" aria-label="Your order">
+   <div class="panel"><div class="panel-head"><h2>Your order</h2><div class="count" id="cartCount">0 items</div></div><div id="cartList" class="cart-items"></div>
+   <div class="bill"><div class="bill-row"><span>Items subtotal</span><strong id="subtotal">₹0.00</strong></div><div class="bill-row"><span>Delivery charges</span><span>Not included</span></div><div class="bill-total"><span>Total</span><b id="grandTotal">₹0.00</b></div></div>
+   <div class="inputs"><div class="input-title">Delivery details</div>
+    <div class="field"><label for="customerName">Full name</label><input id="customerName" type="text" autocomplete="name" maxlength="120" placeholder="Customer name" required></div>
+    <div class="field"><label for="customerPhone">Mobile number</label><input id="customerPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="10-digit mobile number" required></div>
+    <div class="field"><label for="address">Delivery address</label><textarea id="address" maxlength="3000" placeholder="House number, street, city, PIN code, delivery instructions..." required></textarea><div class="hint">You can paste multiple lines and resize this box.</div></div>
+   </div>
+   <div class="order-preview"><div class="preview-label">Packing summary · select or copy</div><textarea class="order-text" id="orderText" aria-label="Copyable order summary" readonly spellcheck="false"></textarea></div>
+   <div class="action"><button type="button" id="sendWhatsapp" class="primary"><span class="wa">◉</span> Share order on WhatsApp ↗</button>
+    <div class="secondary-grid single"><button type="button" id="sharePng" class="secondary">Share order image ↗</button></div>
+    <div class="utility"><button type="button" id="downloadPng">Download image</button><button type="button" id="copyOrder">Copy text</button></div>
+    <div class="fine-print">WhatsApp opens with the order text ready. Choose any contact or group. Share the order image from your phone’s share menu.</div>
+   </div></div>
+   <div class="disclaimer">Order request only · No online payment · Delivery charges and availability confirmed by the seller.</div>
+  </aside>
+ </div>
+ <footer class="footer"><span>© Fireworks · 88257 53664</span><span>Final prices from the 90% offer catalog.</span></footer>
+</main>
+<div class="mobile-bar" id="mobileBar" hidden><div class="summary"><small id="mobileCount">0 items</small><strong id="mobileTotal">₹0.00</strong></div><button id="mobileCart" type="button">View order →</button></div>
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+<script>
+'use strict';
+const PRODUCTS=[{"id":1,"name":"4\" Gold Laxmi","cents":3150,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":31500},{"id":2,"name":"5\" Super Delux Laxmi","cents":3150,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":31500},{"id":3,"name":"4\" Delux Laxmi Hulk","cents":2520,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":25200},{"id":4,"name":"4\" Laxmi Hulk","cents":2310,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":23100},{"id":5,"name":"3½ Laxmi & Hulk","cents":1575,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":15750},{"id":6,"name":"2 3/4 Kuruvi","cents":840,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":8400},{"id":7,"name":"6\" SKS Delux","cents":5775,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":57750},{"id":8,"name":"2 Sound Crackers","cents":3150,"category":"Single Shot Crackers","emoji":"🧨","unit":"pkt","originalCents":31500},{"id":9,"name":"Flower Pots Small","cents":5250,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":52500},{"id":10,"name":"Flower Pots Big","cents":7560,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":75600},{"id":11,"name":"Flower Pots Special","cents":10080,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":100800},{"id":12,"name":"Flower Pots Ashoka","cents":14175,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":141800},{"id":13,"name":"Flower Pots Delux (5pcs)","cents":18018,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":180200},{"id":14,"name":"Flower Pots Super Delux (2pcs)","cents":10395,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":104000},{"id":15,"name":"Flower Pots ColorKoti (10pcs)","cents":20790,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":207900},{"id":16,"name":"Tricolor (5pcs)","cents":23100,"category":"Flower Pots","emoji":"✨","unit":"box","originalCents":231000},{"id":17,"name":"Ground Chakkar Big (25pcs)","cents":7623,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":76230},{"id":18,"name":"Ground Chakkar Big (10pcs)","cents":3843,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":38430},{"id":19,"name":"Ground Chakkar Special","cents":6615,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":66150},{"id":20,"name":"Ground Chakkar Delux","cents":13293,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":132900},{"id":21,"name":"Lotus Wheel (5pcs)","cents":15750,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":157500},{"id":22,"name":"Wire Chakkar (10pcs)","cents":16800,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":168000},{"id":23,"name":"Spinner Ashoka","cents":6300,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":63000},{"id":24,"name":"Spinner Special","cents":8925,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":89250},{"id":25,"name":"Spinner Delux","cents":14175,"category":"Chakkar Items","emoji":"🌀","unit":"box","originalCents":141800},{"id":26,"name":"Chunmun / Mini Jewel","cents":18585,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":185900},{"id":27,"name":"Jasmin","cents":40950,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":409500},{"id":28,"name":"2 in One","cents":43470,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":434700},{"id":29,"name":"Crackling Star","cents":45675,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":456800},{"id":30,"name":"Dazzle","cents":61425,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":614300},{"id":31,"name":"Delux","cents":64575,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":645800},{"id":32,"name":"Gift Pack","cents":88200,"category":"Fancy Soil Pots","emoji":"🎆","unit":"box","originalCents":882000},{"id":33,"name":"Red Bijili (100pcs)","cents":2940,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":29400},{"id":34,"name":"Stripped Bijili (100pcs)","cents":3150,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":31500},{"id":35,"name":"28 Lion","cents":1260,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":12600},{"id":36,"name":"56 Lion","cents":2520,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":25200},{"id":37,"name":"28 Tiger","cents":2310,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":23100},{"id":38,"name":"56 Tiger","cents":4620,"category":"Crackers","emoji":"🧨","unit":"pkt","originalCents":46200},{"id":39,"name":"24 Delux","cents":4200,"category":"Delux Crackers","emoji":"💥","unit":"pkt","originalCents":42000},{"id":40,"name":"50 Delux","cents":9660,"category":"Delux Crackers","emoji":"💥","unit":"pkt","originalCents":96600},{"id":41,"name":"100 Delux","cents":21000,"category":"Delux Crackers","emoji":"💥","unit":"pkt","originalCents":210000},{"id":42,"name":"1/4 Kg Paper Shot","cents":5250,"category":"Delux Crackers","emoji":"💥","unit":"box","originalCents":52500},{"id":43,"name":"1/2 Kg Paper Shot","cents":11550,"category":"Delux Crackers","emoji":"💥","unit":"box","originalCents":115500},{"id":44,"name":"1 Kg Paper Bomb","cents":25200,"category":"Delux Crackers","emoji":"💥","unit":"box","originalCents":252000},{"id":45,"name":"Ultra Pencil","cents":10500,"category":"Candles & Twinkling Stars","emoji":"🌟","unit":"box","originalCents":105000},{"id":46,"name":"Popstar (5pcs)","cents":11550,"category":"Candles & Twinkling Stars","emoji":"🌟","unit":"box","originalCents":115500},{"id":47,"name":"20/20 Pencil (2pcs)","cents":19110,"category":"Candles & Twinkling Stars","emoji":"🌟","unit":"box","originalCents":191100},{"id":48,"name":"Jiljil","cents":10500,"category":"Candles & Twinkling Stars","emoji":"🌟","unit":"box","originalCents":105000},{"id":49,"name":"4\" Twinkle Star","cents":6300,"category":"Candles & Twinkling Stars","emoji":"🌟","unit":"box","originalCents":63000},{"id":50,"name":"Mini Bullet","cents":2520,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":25200},{"id":51,"name":"Super Bullet","cents":3150,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":31500},{"id":52,"name":"Hydro Green","cents":6300,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":63000},{"id":53,"name":"Classic Green","cents":9400,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":94000},{"id":54,"name":"Agni Red","cents":15000,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":150000},{"id":55,"name":"Digital Red","cents":16000,"category":"Atom Bomb","emoji":"💥","unit":"box","originalCents":160000},{"id":56,"name":"0.1K","cents":3700,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":37000},{"id":57,"name":"0.2K","cents":7665,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":76650},{"id":58,"name":"0.3K","cents":11550,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":115500},{"id":59,"name":"0.6K","cents":16485,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":164900},{"id":60,"name":"1K Premium","cents":25200,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":252000},{"id":61,"name":"2K Premium","cents":50400,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":504000},{"id":62,"name":"5K Premium","cents":126000,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":1260000},{"id":63,"name":"10K Premium","cents":252000,"category":"Premium Crackers","emoji":"🎇","unit":"box","originalCents":2520000},{"id":64,"name":"Baby Rocket","cents":3150,"category":"Rockets","emoji":"🚀","unit":"box","originalCents":31500},{"id":65,"name":"Rocket Bomb","cents":6300,"category":"Rockets","emoji":"🚀","unit":"box","originalCents":63000},{"id":66,"name":"Lunik Rocket","cents":10500,"category":"Rockets","emoji":"🚀","unit":"box","originalCents":105000},{"id":67,"name":"Whistling Rocket","cents":17850,"category":"Rockets","emoji":"🚀","unit":"box","originalCents":178500},{"id":68,"name":"Butterfly (5pcs)","cents":10500,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":105000},{"id":69,"name":"Pambaram (5pcs)","cents":12600,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":126000},{"id":70,"name":"Helicopter (5pcs)","cents":10500,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":105000},{"id":71,"name":"Photo Flash (5pcs)","cents":7350,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":73500},{"id":72,"name":"Mini Siren (5pcs)","cents":10500,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":105000},{"id":73,"name":"Mega Siren (3pcs)","cents":18900,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":189000},{"id":74,"name":"SeethaGeetha (5pcs)","cents":8400,"category":"Fancy Novelties","emoji":"🎉","unit":"box","originalCents":84000},{"id":75,"name":"Peacock Feather (5pcs)","cents":10500,"category":"Peacock Fountain","emoji":"🦚","unit":"box","originalCents":105000},{"id":76,"name":"Dancing Peacock (3 Fav)","cents":18900,"category":"Peacock Fountain","emoji":"🦚","unit":"box","originalCents":189000},{"id":77,"name":"Bada Peacock","cents":37800,"category":"Peacock Fountain","emoji":"🦚","unit":"box","originalCents":378000},{"id":78,"name":"Snake (50pcs)","cents":15750,"category":"Kids Zone","emoji":"🎈","unit":"box","originalCents":157500},{"id":79,"name":"Haikoo (10pcs)","cents":5250,"category":"Kids Zone","emoji":"🎈","unit":"box","originalCents":52500},{"id":80,"name":"2.0 (10pcs)","cents":2600,"category":"Kids Zone","emoji":"🎈","unit":"box","originalCents":26000},{"id":81,"name":"Shinchan","cents":9450,"category":"Kids Zone","emoji":"🎈","unit":"box","originalCents":94500},{"id":82,"name":"ChottaBheem (5pcs)","cents":10500,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":105000},{"id":83,"name":"Wonder Color (5pcs)","cents":21000,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":210000},{"id":84,"name":"Koko Shower (5pcs)","cents":15750,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":157500},{"id":85,"name":"Magical Yellow Falls (5pcs)","cents":21000,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":210000},{"id":86,"name":"Magical Green Rain (5pcs)","cents":21000,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":210000},{"id":87,"name":"Magical Red Sun (5pcs)","cents":21000,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":210000},{"id":88,"name":"Magical Winter Mist (5pcs)","cents":21000,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":210000},{"id":89,"name":"Fun Fun (5pcs)","cents":8400,"category":"Fancy Fountain","emoji":"🎆","unit":"box","originalCents":84000},{"id":90,"name":"Fanta","cents":8400,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":84000},{"id":91,"name":"Coco Cola","cents":8400,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":84000},{"id":92,"name":"Pepsi","cents":8400,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":84000},{"id":93,"name":"7 Up","cents":8400,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":84000},{"id":94,"name":"Water Queen","cents":15750,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":157500},{"id":95,"name":"Golden Falls","cents":18900,"category":"Tin Fountain","emoji":"🌈","unit":"box","originalCents":189000},{"id":96,"name":"Mini Chotta (1pc)","cents":1470,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":14700},{"id":97,"name":"1\" Chotta Fancy (1pc)","cents":4305,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":43050},{"id":98,"name":"Penta (5pcs)","cents":11000,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":110000},{"id":99,"name":"1¾\" Fancy Silver (3pcs)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":100,"name":"1¾\" Fancy Yellow (3pcs)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":101,"name":"1¾\" Fancy Red (3pcs)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":102,"name":"1¾\" Fancy Green (3pcs)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":103,"name":"1¾\" Fancy Red & Green (3pcs)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":104,"name":"2\" Fancy Silver (1pc)","cents":10500,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":105000},{"id":105,"name":"2\" Fancy Yellow (1pc)","cents":10500,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":105000},{"id":106,"name":"2\" Fancy Red (1pc)","cents":10500,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":105000},{"id":107,"name":"2\" Fancy Green (1pc)","cents":10500,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":105000},{"id":108,"name":"2\" Fancy Red & Green (1pc)","cents":10500,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":105000},{"id":109,"name":"3½\" Fancy Silver (1pc)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":110,"name":"3½\" Fancy Yellow (1pc)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":111,"name":"3½\" Fancy Red (1pc)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":112,"name":"3½\" Fancy Red & Green (1pc)","cents":25410,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":254100},{"id":113,"name":"4\" Agni (2pcs)","cents":84000,"category":"Night Aerial Attractions","emoji":"🌠","unit":"box","originalCents":840000},{"id":114,"name":"Sky Shot Crackling (10pcs)","cents":11550,"category":"Romantic Rider Special","emoji":"🌃","unit":"box","originalCents":115500},{"id":115,"name":"Color Sky Shot (10pcs)","cents":21000,"category":"Romantic Rider Special","emoji":"🌃","unit":"box","originalCents":210000},{"id":116,"name":"12 Shot Green","cents":15750,"category":"Romantic Rider Special","emoji":"🌃","unit":"box","originalCents":157500},{"id":117,"name":"25 Shot Crackling","cents":23100,"category":"Romantic Rider Special","emoji":"🌃","unit":"box","originalCents":231000},{"id":118,"name":"7 Shot","cents":12600,"category":"Romantic Colours Special","emoji":"🎨","unit":"box","originalCents":126000},{"id":119,"name":"30 Shots Multicolor","cents":37800,"category":"Romantic Colours Special","emoji":"🎨","unit":"box","originalCents":378000},{"id":120,"name":"60 Shots Multicolor","cents":78750,"category":"Romantic Colours Special","emoji":"🎨","unit":"box","originalCents":787500},{"id":121,"name":"120 Shots Multicolor","cents":157500,"category":"Romantic Colours Special","emoji":"🎨","unit":"box","originalCents":1575000},{"id":122,"name":"240 Shots Multicolor","cents":315000,"category":"Romantic Colours Special","emoji":"🎨","unit":"box","originalCents":3150000},{"id":123,"name":"7 cm Electric Sparklers","cents":1155,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":11550},{"id":124,"name":"7 cm Color Sparklers","cents":1470,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":14700},{"id":125,"name":"7 cm Green Sparklers","cents":1575,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":15750},{"id":126,"name":"7 cm Red Sparklers","cents":1890,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":18900},{"id":127,"name":"10 cm Electric Sparklers","cents":2100,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":21000},{"id":128,"name":"10 cm Color Sparklers","cents":2205,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":22050},{"id":129,"name":"10 cm Green Sparklers","cents":2415,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":24150},{"id":130,"name":"10 cm Red Sparklers","cents":2835,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":28350},{"id":131,"name":"12 cm Electric Sparklers","cents":2835,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":28350},{"id":132,"name":"12 cm Color Sparklers","cents":3150,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":31500},{"id":133,"name":"12 cm Green Sparklers","cents":3465,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":34650},{"id":134,"name":"12 cm Red Sparklers","cents":3990,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":39900},{"id":135,"name":"15 cm Electric Sparklers","cents":4200,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":42000},{"id":136,"name":"15 cm Color Sparklers","cents":4515,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":45150},{"id":137,"name":"15 cm Green Sparklers","cents":5040,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":50400},{"id":138,"name":"15 cm Red Sparklers","cents":5775,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":57750},{"id":139,"name":"30 cm Electric Sparklers","cents":4200,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":42000},{"id":140,"name":"30 cm Color Sparklers","cents":4515,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":45150},{"id":141,"name":"30 cm Green Sparklers","cents":5040,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":50400},{"id":142,"name":"30 cm Red Sparklers","cents":5775,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":57750},{"id":143,"name":"50 cm Electric Sparklers","cents":15750,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":157500},{"id":144,"name":"50 cm Color Sparklers","cents":17850,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":178500},{"id":145,"name":"75 cm Electric Sparklers","cents":25200,"category":"Colour Sparklers","emoji":"✨","unit":"box","originalCents":252000},{"id":146,"name":"Delux","cents":10395,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":104000},{"id":147,"name":"Rider","cents":15645,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":156500},{"id":148,"name":"Twister","cents":22050,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":220500},{"id":149,"name":"Magic","cents":24200,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":242500},{"id":150,"name":"Candy Pop","cents":26300,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":263500},{"id":151,"name":"Kids World (21 items)","cents":null,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":null},{"id":152,"name":"Celebrate Diwali (31 items)","cents":null,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":null},{"id":153,"name":"Royal Rambo (41 items)","cents":null,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":null},{"id":154,"name":"SKS VIB (51 items)","cents":null,"category":"Gift Boxes","emoji":"🎁","unit":"box","originalCents":null},{"id":155,"name":"Umbrella Sparklers","cents":23100,"category":"New Arrivals","emoji":"🎊","unit":"box","originalCents":231000},{"id":156,"name":"Car","cents":21000,"category":"New Arrivals","emoji":"🎊","unit":"box","originalCents":210000},{"id":157,"name":"Bat - Ball","cents":16800,"category":"New Arrivals","emoji":"🎊","unit":"box","originalCents":168000}];
+const $=id=>document.getElementById(id);
+const BY_ID=new Map(PRODUCTS.map(p=>[p.id,p]));
+const CATEGORIES=[...new Set(PRODUCTS.map(p=>p.category))];
+const money=c=>'₹'+(c/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+let cart={};let category='All';let query='';let toastTimer;
+try{const o=JSON.parse(localStorage.getItem('blastu-cart-v1')||'{}');for(const [key,v] of Object.entries(o)){const p=BY_ID.get(Number(key));if(p&&p.cents!==null&&Number.isInteger(v)&&v>0&&v<=999)cart[p.id]=v}}catch(e){}
+for(const id of ['customerName','customerPhone','address']){try{$(id).value=localStorage.getItem('blastu-field-'+id)||''}catch(e){}}
+const entries=()=>Object.keys(cart).map(Number).sort((a,b)=>a-b).filter(id=>cart[id]&&BY_ID.has(id)).map(id=>({...BY_ID.get(id),qty:cart[id]}));
+const total=()=>entries().reduce((n,p)=>n+p.cents*p.qty,0);
+const count=()=>Object.values(cart).reduce((n,v)=>n+v,0);
+const productsCount=()=>entries().length;
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3800)}
+function persist(){try{localStorage.setItem('blastu-cart-v1',JSON.stringify(cart))}catch(e){}}
+function setQty(id,n){const p=BY_ID.get(id);if(!p||p.cents===null)return;n=Math.max(0,Math.min(999,Math.floor(n)));if(n)cart[id]=n;else delete cart[id];persist();renderProducts();renderCart()}
+function qtyHtml(p){return `<div class="qty"><button type="button" aria-label="Decrease ${esc(p.name)}" data-step="-1" data-id="${p.id}">−</button><strong aria-live="polite">${cart[p.id]||0}</strong><button type="button" aria-label="Increase ${esc(p.name)}" data-step="1" data-id="${p.id}">+</button></div>`}
+function renderCats(){$('categories').innerHTML=['All',...CATEGORIES].map(c=>`<button type="button" class="cat ${c===category?'on':''}" aria-pressed="${c===category}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
+
+function renderProducts(){
+ const q=query.trim().replace(/^#/,'').toLowerCase();
+ let ps=PRODUCTS.filter(p=>{
+  if(category!=='All' && category!==p.category)return false;
+  if(!q)return true;
+  if(/^\d{1,3}$/.test(q) && Number(q)>=1 && Number(q)<=157)return p.id===Number(q);
+  return (p.name+' '+p.category+' '+p.id+' '+String(p.id).padStart(3,'0')).toLowerCase().includes(q);
+ });
+ $('resultCount').textContent=`${ps.length} product${ps.length===1?'':'s'}`;
+ $('noResults').hidden=!!ps.length;
+ $('productGrid').innerHTML=ps.map(p=>{
+  const sn=String(p.id).padStart(3,'0');
+  const price=p.cents===null?'<div class="price-request">Price on request</div>':
+   `<strong class="discount-price">${money(p.cents)}</strong><s class="original-price">${money(p.originalCents)}</s>`;
+  const action=p.cents===null?
+   `<button class="card-add" disabled type="button" aria-label="Price on request, serial ${sn}">Enquire</button>`:
+   (cart[p.id]?qtyHtml(p):`<button class="card-add" type="button" data-step="1" data-id="${p.id}" aria-label="Add serial ${sn}, ${esc(p.name)}">ADD</button>`);
+  return `<article class="product-card"><div class="product-card-info"><span class="serial-badge">${sn}</span><h3 class="product-card-name">${esc(p.name)}</h3></div>`+
+   `<div class="product-card-price">${price}</div><div class="product-card-action">${action}</div></article>`;
+ }).join('');
+}
+function formatOrderTable(ps){
+ // The catalog carries product names; the seller's packing sheet only needs the
+ // original printed serial, ordered quantity, and line amount.
+ const rows=[['S.No','Qty','Amount']];
+ for(const p of ps){
+  rows.push([String(p.id).padStart(3,'0'),String(p.qty),money(p.qty*p.cents)]);
+ }
+ const widths=[0,0,0];
+ for(const row of rows){row.forEach((cell,i)=>{widths[i]=Math.max(widths[i],String(cell).length)})}
+ const pad=(v,i)=>i===0?String(v).padEnd(widths[i],' '):String(v).padStart(widths[i],' ');
+ return rows.map((row,i)=>{
+  const line=row.map((cell,idx)=>pad(cell,idx)).join('  |  ');
+  return i===0?line+'\n'+widths.map(w=>'-'.repeat(w)).join('--+--'):line;
+ }).join('\n');
+}
+function orderText(){const ps=entries(),name=$('customerName').value.trim(),phone=$('customerPhone').value.trim(),address=$('address').value.trim();const l=['FIREWORKS','Fireworks order summary',''];if(ps.length){l.push(formatOrderTable(ps))}else{l.push('(Add products to prepare your order)')}l.push('',`Products: ${productsCount()} | Total quantity: ${count()}`,`TOTAL: ${money(total())}`,'Delivery: Additional charges, if any, to be confirmed','',`Customer: ${name||'Not entered'}`,`Mobile: ${phone||'Not entered'}`,'Delivery address:',address||'Not entered','', 'Please refer to serial numbers while confirming this order.');return l.join('\n')}
+
+function renderCart(){const ps=entries();$('headCount').textContent=count();$('cartCount').textContent=`${count()} item${count()===1?'':'s'}`;$('subtotal').textContent=money(total());$('grandTotal').textContent=money(total());$('mobileCount').textContent=`${count()} item${count()===1?'':'s'}`;$('mobileTotal').textContent=money(total());$('mobileBar').hidden=!ps.length;$('cartList').innerHTML=ps.length?ps.map(p=>`<div class="line"><div><div class="cart-serial">Serial #${String(p.id).padStart(3,'0')}</div><div class="cart-name">${esc(p.name)}</div><div class="cart-unit">${money(p.cents)} / ${p.unit}</div></div><div class="cart-side"><b>${money(p.qty*p.cents)}</b>${qtyHtml(p)}</div></div>`).join(''):'<div class="empty-cart">Your cart is empty.<br>Add products to get started.</div>';$('orderText').value=orderText()}
+function ready(){if(!count()){toast('Add at least one product.');return false}for(const [id,msg] of [['customerName','Enter your name.'],['customerPhone','Enter your mobile number.'],['address','Enter the delivery address.']])if(!$(id).value.trim()){toast(msg);$(id).focus();return false}const digits=$('customerPhone').value.replace(/\D/g,'');if(digits.length<10||digits.length>15){toast('Enter a valid mobile number.');$('customerPhone').focus();return false}return true}
+function goCart(){$('orderPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+$('topCart').onclick=goCart;$('mobileCart').onclick=goCart;
+$('categories').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;category=b.dataset.cat;renderCats();renderProducts()});
+function handleQty(e){const b=e.target.closest('[data-step][data-id]');if(b)setQty(Number(b.dataset.id),(cart[b.dataset.id]||0)+Number(b.dataset.step))}
+$('productGrid').addEventListener('click',handleQty);$('cartList').addEventListener('click',handleQty);
+$('search').addEventListener('input',e=>{query=e.target.value.toLowerCase().trim();renderProducts()});
+for(const id of ['customerName','customerPhone','address'])$(id).addEventListener('input',()=>{try{localStorage.setItem('blastu-field-'+id,$(id).value)}catch(e){}renderCart()});
+$('orderText').addEventListener('focus',e=>e.target.select());
+$('sendWhatsapp').addEventListener('click',()=>{if(!ready())return;const msg=orderText();const url=`https://wa.me/?text=${encodeURIComponent(msg)}`;if(url.length>7500){toast('This order is very long. Copy the text and paste it into WhatsApp.');return}const opened=window.open(url,'_blank','noopener,noreferrer');if(!opened)window.location.href=url});
+$('copyOrder').addEventListener('click',async()=>{if(!ready())return;const t=orderText();try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(t);else{const textarea=$('orderText');textarea.focus();textarea.select();if(!document.execCommand('copy'))throw Error('unavailable')}toast('Order copied. Paste it into WhatsApp.')}catch(e){$('orderText').focus();$('orderText').select();toast('Order selected. Use Copy in your device menu.')}});
+// Build a shareable image order summary.
+const W=1200,H=1697,X=72,RIGHT=1128,CONTENT=RIGHT-X;
+function wrap(ctx,str,maxW){if(!str)return[''];const words=String(str).split(/\s+/),out=[];let current='';for(const word of words){const next=current?current+' '+word:word;if(ctx.measureText(next).width<=maxW){current=next;continue}if(current){out.push(current);current=''}if(ctx.measureText(word).width<=maxW){current=word;continue}let partial='';for(const char of word){if(ctx.measureText(partial+char).width>maxW&&partial){out.push(partial);partial=''}partial+=char}current=partial}if(current)out.push(current);return out}
+function receiptPages(){
+ const pages=[],ps=entries();let ctx,y;
+ const BOX_X=X, BOX_W=CONTENT, BOX_TOP=160, BOX_BOTTOM=1548, INNER=BOX_X+48, LINE_MAX=BOX_W-96;
+ const newPage=()=>{
+  const c=document.createElement('canvas');c.width=W;c.height=H;ctx=c.getContext('2d');
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#d4d4d8';ctx.lineWidth=2;
+  const r=26;
+  ctx.beginPath();
+  ctx.moveTo(BOX_X+r,BOX_TOP);
+  ctx.lineTo(BOX_X+BOX_W-r,BOX_TOP);
+  ctx.quadraticCurveTo(BOX_X+BOX_W,BOX_TOP,BOX_X+BOX_W,BOX_TOP+r);
+  ctx.lineTo(BOX_X+BOX_W,BOX_BOTTOM-r);
+  ctx.quadraticCurveTo(BOX_X+BOX_W,BOX_BOTTOM,BOX_X+BOX_W-r,BOX_BOTTOM);
+  ctx.lineTo(BOX_X+r,BOX_BOTTOM);
+  ctx.quadraticCurveTo(BOX_X,BOX_BOTTOM,BOX_X,BOX_BOTTOM-r);
+  ctx.lineTo(BOX_X,BOX_TOP+r);
+  ctx.quadraticCurveTo(BOX_X,BOX_TOP,BOX_X+r,BOX_TOP);
+  ctx.stroke();
+  ctx.fillStyle='#111';
+  ctx.font='500 40px Inter,Arial,sans-serif';ctx.fillText('FIREWORKS',INNER,245);
+  ctx.font='400 33px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace';ctx.fillText('Fireworks order summary',INNER,325);
+  y=420;
+  pages.push(c);
+ };
+ const ensure=(h=40)=>{if(y+h>1460){footer(pages[pages.length-1], pages.length);newPage();}};
+ const monoLines=(text,font='400 33px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace')=>{
+  ctx.font=font; const out=[];
+  for(const raw of String(text).split(/\n/)){
+   if(ctx.measureText(raw).width<=LINE_MAX){out.push(raw||''); continue;}
+   let current='';
+   const chunks=raw.includes('|')||raw.includes('+-')?[...raw]:raw.split(/(\s+)/);
+   for(const chunk of chunks){
+    const next=current+chunk;
+    if(ctx.measureText(next).width>LINE_MAX && current){out.push(current.trimEnd()); current='';}
+    if(ctx.measureText(chunk).width>LINE_MAX){
+      for(const ch of chunk){if(ctx.measureText(current+ch).width>LINE_MAX && current){out.push(current);current='';}current+=ch;}
+    } else current+=chunk;
+   }
+   out.push(current.trim());
+  }
+  return out;
+ };
+ const drawMonoBlock=(text)=>{
+  ctx.fillStyle='#52525b';
+  ctx.font='400 33px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace';
+  for(const line of monoLines(text)){
+   ensure(46); ctx.fillText(line,INNER,y); y+=48;
+  }
+ };
+ const drawLabel=(label, value, boldValue=false)=>{
+  ensure(44);
+  ctx.fillStyle='#111'; ctx.font='700 26px Inter,Arial,sans-serif'; ctx.fillText(label,INNER,y);
+  y+=18;
+  const font = boldValue ? '700 26px Inter,Arial,sans-serif' : '500 26px Inter,Arial,sans-serif';
+  ctx.fillStyle='#111'; ctx.font=font;
+  for(const raw of String(value||'Not entered').split(/\n/)){
+   const words=raw.split(/\s+/); let current='';
+   for(const w of words){
+    const next=current?current+' '+w:w;
+    if(ctx.measureText(next).width>LINE_MAX && current){ ensure(36); ctx.fillText(current,INNER,y+22); y+=34; current=w; }
+    else current=next;
+   }
+   ensure(36); ctx.fillText(current||'',INNER,y+22); y+=38;
+  }
+  y+=16;
+ };
+ const footer=(canvas,pageNo)=>{
+  const ct=canvas.getContext('2d');
+  ct.fillStyle='#e4e4e7'; ct.fillRect(X,1603,CONTENT,2);
+  ct.fillStyle='#71717a'; ct.font='500 18px Inter,Arial,sans-serif';
+  ct.fillText('FIREWORKS · Order summary',X,1634);
+  ct.textAlign='right'; ct.fillText(`Page ${pageNo}`,RIGHT,1634); ct.textAlign='left';
+ };
+ newPage();
+ drawMonoBlock(formatOrderTable(ps));
+ y+=20;
+ drawMonoBlock(`Products: ${productsCount()} | Total quantity: ${count()}`);
+ drawMonoBlock(`TOTAL: ${money(total())}`);
+ y+=14;
+ drawLabel('Customer', $('customerName').value.trim());
+ drawLabel('Mobile', $('customerPhone').value.trim());
+ drawLabel('Delivery address', $('address').value.trim(), true);
+ y+=24;
+ 
+ drawMonoBlock('Please refer to serial numbers while confirming this order.');
+ drawMonoBlock('Delivery charges and availability to be confirmed.');
+ pages.forEach((c,i)=>footer(c, i+1));
+ return pages;
+}
+function imageBlob(pages){return new Promise((resolve,reject)=>{const width=W,height=pages.length*H;if(height>32000){reject(Error('This order image is too long. Please share smaller orders separately.'));return}const c=document.createElement('canvas');c.width=width;c.height=height;const ctx=c.getContext('2d');for(let i=0;i<pages.length;i++)ctx.drawImage(pages[i],0,i*H);c.toBlob(b=>b?resolve(b):reject(Error('Unable to create image.')),'image/png')})}
+
+function download(blob,fileName){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
+let exporting=false;
+async function exportImage(share){if(exporting||!ready())return;exporting=true;const name='Fireworks-Order.png';try{toast('Preparing your order image...');const pages=receiptPages();const blob=await imageBlob(pages);const file=new File([blob],name,{type:'image/png'});if(share&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({title:'Fireworks Order',text:'Fireworks order details',files:[file]});toast('Choose WhatsApp or another app, then select any recipient.');return}catch(e){if(e.name==='AbortError'){toast('Sharing cancelled.');return}/* fall through to download if file sharing is unavailable */}}
+ download(blob,name);toast(share?'Image saved. Open it from your gallery to share, or use Share order on WhatsApp for text.':'Order image saved to downloads.')}catch(e){console.error(e);toast(e.message||'Could not create order image. Please retry.')}finally{exporting=false}}
+$('sharePng').onclick=()=>exportImage(true);$('downloadPng').onclick=()=>exportImage(false);
+renderCats();renderProducts();renderCart();
+</script>
+</body></html>
