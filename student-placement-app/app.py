@@ -14,11 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-DATA_URL = (
-    "https://raw.githubusercontent.com/"
-    "lalo-salamanca-jmc-24/student-placement-prediction/"
-    "main/Placement_BeginnerTask01.csv"
-)
+DATA_PATH = Path(__file__).parent / "Placement_BeginnerTask01.csv"
 RANDOM_STATE = 42
 
 FEATURES = [
@@ -93,7 +89,7 @@ st.markdown(
 
 @st.cache_data(show_spinner=False)
 def load_dataset():
-    return pd.read_csv(DATA_URL)
+    return pd.read_csv(DATA_PATH)
 
 @st.cache_resource(show_spinner=False)
 def train_selected_model():
